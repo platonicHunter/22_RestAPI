@@ -1,0 +1,29 @@
+<button id="get">Get Post</button>
+<button id="post">Create a Post</button>
+
+
+const getBtn = document.getElementById('get');
+const postBtn = document.getElementById('post');
+
+getBtn.addEventListener('click', () => {
+    fetch("http://localhost:1500/feed/posts")
+        .then(res => res.json())
+        .then(resData => console.log(resData))
+        .catch(err => console.log(err));
+});
+
+postBtn.addEventListener('click', () => {
+    fetch("http://localhost:1500/feed/post",{
+      method:'POST',
+      body: JSON.stringify({
+            title: 'New Post',
+            content: 'This is the content of the new post.'
+        }),
+      headers:{
+        'Content-Type':'application/json'
+      }
+    })
+        .then(res => res.json())
+        .then(resData => console.log(resData))
+        .catch(err => console.log(err));
+});
